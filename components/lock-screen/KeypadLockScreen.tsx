@@ -67,21 +67,20 @@ export const KeypadLockScreen: React.FC<KeypadLockScreenProps> = ({
 
         {/* Vintage Scrapbook Paper Card Box */}
         <motion.div
-          className={`relative w-full max-w-sm scrapbook-card p-6 sm:p-8 text-[#4A1E28] transition-colors duration-300 ${
-            isError ? 'border-red-400 bg-[#FFF5F5]' : isSuccess ? 'border-emerald-500 bg-[#F4FFF8]' : 'bg-[#FFFDF9]'
-          }`}
+          className={`relative w-full max-w-sm scrapbook-card p-6 sm:p-8 text-[#4A1E28] transition-colors duration-300 ${isError ? 'border-red-400 bg-[#FFF5F5]' : isSuccess ? 'border-emerald-500 bg-[#F4FFF8]' : 'bg-[#FFFDF9]'
+            }`}
           animate={
             isError
               ? {
-                  x: [-12, 12, -8, 8, -4, 4, 0],
-                  transition: { duration: 0.5 },
-                }
+                x: [-12, 12, -8, 8, -4, 4, 0],
+                transition: { duration: 0.5 },
+              }
               : isSuccess
-              ? {
+                ? {
                   scale: [1, 1.03, 1],
                   transition: { duration: 0.4 },
                 }
-              : {}
+                : {}
           }
         >
           {/* Scrapbook Tape Accent */}
@@ -118,15 +117,14 @@ export const KeypadLockScreen: React.FC<KeypadLockScreenProps> = ({
               return (
                 <div
                   key={idx}
-                  className={`w-4 h-4 rounded-full border-2 transition-all duration-200 ${
-                    filled
+                  className={`w-4 h-4 rounded-full border-2 transition-all duration-200 ${filled
                       ? isError
                         ? 'bg-red-500 border-red-600 scale-110'
                         : isSuccess
-                        ? 'bg-emerald-600 border-emerald-700 scale-125'
-                        : 'bg-[#6B2D39] border-[#4A1E28] scale-110 shadow-sm'
+                          ? 'bg-emerald-600 border-emerald-700 scale-125'
+                          : 'bg-[#6B2D39] border-[#4A1E28] scale-110 shadow-sm'
                       : 'bg-white border-[#D8A7B1]'
-                  }`}
+                    }`}
                 />
               );
             })}
@@ -196,7 +194,7 @@ export const KeypadLockScreen: React.FC<KeypadLockScreenProps> = ({
                   <span>Petunjuk Cinta:</span>
                 </div>
                 <p>
-                  Tanggal resmi kita berdua jadian di bulan September (Format: <strong>2909</strong>).
+                  Tanggal resmi kita berdua jadian.
                 </p>
               </motion.div>
             )}
