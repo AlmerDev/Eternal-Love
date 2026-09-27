@@ -1,0 +1,82 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-serif: 'Playfair Display', serif;
+    --font-cormorant: 'Cormorant Garamond', serif;
+    --font-script: 'Caveat', cursive;
+  }
+
+  body {
+    background-color: #FAF4F0;
+    color: #4A1E28;
+    font-family: var(--font-cormorant), serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-serif), serif;
+  }
+}
+
+.font-serif-vintage {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+.font-cormorant {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+}
+
+.font-script {
+  font-family: 'Caveat', cursive;
+}
+
+/* Vintage Paper Card styling */
+.scrapbook-card {
+  background-color: #FFFDF9;
+  border: 2px solid #D8A7B1;
+  border-radius: 1rem;
+  box-shadow: 4px 6px 0px 0px rgba(216, 167, 177, 0.45), 0 10px 15px -3px rgba(74, 30, 40, 0.06);
+}
+
+.scrapbook-card-pink {
+  background-color: #F9E2E7;
+  border: 2px solid #D8A7B1;
+  border-radius: 1rem;
+  box-shadow: 4px 6px 0px 0px rgba(200, 157, 102, 0.35), 0 10px 15px -3px rgba(74, 30, 40, 0.06);
+}
+
+.scrapbook-tape {
+  position: absolute;
+  height: 24px;
+  width: 90px;
+  background-color: rgba(249, 226, 231, 0.95);
+  border: 1px dashed #D8A7B1;
+  transform: rotate(-3deg);
+  top: -12px;
+  left: 20px;
+  z-index: 10;
+}
+
+.scrapbook-pin {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #C89D66 0%, #6B2D39 100%);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Custom scrollbar for vintage feel */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #FAF4F0;
+}
+::-webkit-scrollbar-thumb {
+  background: #D8A7B1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #C89D66;
+}
+
