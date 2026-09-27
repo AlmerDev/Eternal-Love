@@ -19,6 +19,7 @@ export const CanvasScratchCard: React.FC<CanvasScratchCardProps> = ({ messages =
   const [scratchedPercent, setScratchedPercent] = useState<number>(0);
   const [isRevealed, setIsRevealed] = useState<boolean>(false);
 
+  const containerRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const isDrawing = useRef<boolean>(false);
   const lastPos = useRef<{ x: number; y: number } | null>(null);
@@ -29,13 +30,19 @@ export const CanvasScratchCard: React.FC<CanvasScratchCardProps> = ({ messages =
   // Initialize and paint scratch foil layer
   const initFoil = useCallback(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    const container = containerRef.current;
+    if (!canvas || !container) return;
+
+    // Use container dimensions so foil fits the exact height of the message content without cut off
+    const rect = container.getBoundingClientRect();
+    const width = Math.max(Math.round(rect.width) || 320, 280);
+    const height = Math.max(Math.round(rect.height) || 280, 240);
+
+    canvas.width = width;
+    canvas.height = height;
 
     const ctx = canvas.getContext('2d', { willReadFrequently: true });
     if (!ctx) return;
-
-    const width = canvas.width;
-    const height = canvas.height;
 
     // Reset composite operation to paint solid layer
     ctx.globalCompositeOperation = 'source-over';
@@ -59,14 +66,15 @@ export const CanvasScratchCard: React.FC<CanvasScratchCardProps> = ({ messages =
       }
     }
 
-    // Foil Banner Text
+    // Foil Banner Text responsive to width
     ctx.fillStyle = '#4A1E28';
-    ctx.font = 'bold 16px "Playfair Display", Georgia, serif';
+    const isMobile = width < 420;
+    ctx.font = isMobile ? 'bold 13px "Playfair Display", Georgia, serif' : 'bold 15px "Playfair Display", Georgia, serif';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.fillText('Gores di Sini untuk Membaca Surat Rahasia', width / 2, height / 2 - 12);
+    ctx.fillText('✨ Gores di Sini untuk Membaca Surat Rahasia ✨', width / 2, height / 2 - 12);
 
-    ctx.font = 'italic 13px "Cormorant Garamond", Georgia, serif';
+    ctx.font = isMobile ? 'italic 12px "Cormorant Garamond", Georgia, serif' : 'italic 13px "Cormorant Garamond", Georgia, serif';
     ctx.fillStyle = '#6B2D39';
     ctx.fillText('Sentuh atau seret jarimu perlahan...', width / 2, height / 2 + 14);
 
@@ -76,7 +84,20 @@ export const CanvasScratchCard: React.FC<CanvasScratchCardProps> = ({ messages =
   }, []);
 
   useEffect(() => {
-    initFoil();
+    // Delay slightly to allow DOM to calculate container height based on text length
+    const timer = setTimeout(() => {
+      initFoil();
+    }, 60);
+
+    const handleResize = () => {
+      initFoil();
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('resize', handleResize);
+    };
   }, [initFoil, activeMessageIndex]);
 
   // Scratch action logic - Purely manual scratching with smooth continuous stroke
@@ -258,16 +279,19 @@ export const CanvasScratchCard: React.FC<CanvasScratchCardProps> = ({ messages =
           </div>
 
           {/* Secret Message Container + Scratch Canvas Layer */}
-          <div className="relative w-full h-56 sm:h-64 rounded-xl overflow-hidden border-2 border-[#D8A7B1] bg-[#FAF4F0] select-none">
-            {/* The Hidden Message Behind the Scratch Foil */}
-            <div className="absolute inset-0 p-6 flex flex-col justify-center items-center text-center bg-[#FAF4F0]">
-              <div className="p-2 rounded-full bg-[#F9E2E7] border border-[#D8A7B1] mb-2 text-[#6B2D39]">
-                <Heart className="w-5 h-5 fill-current" />
+          <div
+            ref={containerRef}
+            className="relative w-full min-h-[250px] sm:min-h-[270px] rounded-xl overflow-hidden border-2 border-[#D8A7B1] bg-[#FAF4F0] select-none shadow-inner"
+          >
+            {/* The Hidden Message Behind the Scratch Foil (Natural flow so it never gets cut off on mobile) */}
+            <div className="w-full h-full p-4 sm:p-7 flex flex-col justify-center items-center text-center bg-[#FAF4F0] min-h-[250px] sm:min-h-[270px]">
+              <div className="p-2 rounded-full bg-[#F9E2E7] border border-[#D8A7B1] mb-2 text-[#6B2D39] shrink-0">
+                <Heart className="w-4 h-4 sm:w-5 sm:h-5 fill-current" />
               </div>
-              <h4 className="font-serif font-bold text-lg text-[#4A1E28] mb-2">
+              <h4 className="font-serif font-bold text-base sm:text-lg text-[#4A1E28] mb-2">
                 {currentMessage.title}
               </h4>
-              <p className="font-script text-lg sm:text-xl text-[#6B2D39] leading-relaxed">
+              <p className="font-script text-base sm:text-xl text-[#6B2D39] leading-relaxed break-words max-w-full">
                 &ldquo;{currentMessage.message}&rdquo;
               </p>
             </div>
@@ -275,8 +299,6 @@ export const CanvasScratchCard: React.FC<CanvasScratchCardProps> = ({ messages =
             {/* The Scratchable Foil Canvas Layer on Top (Manual Scratching Without Auto-Disappear) */}
             <canvas
               ref={canvasRef}
-              width={540}
-              height={260}
               onMouseDown={handleMouseDown}
               onMouseMove={handleMouseMove}
               onMouseUp={handleMouseUp}
@@ -284,7 +306,7 @@ export const CanvasScratchCard: React.FC<CanvasScratchCardProps> = ({ messages =
               onTouchStart={handleTouchStart}
               onTouchMove={handleTouchMove}
               onTouchEnd={handleTouchEnd}
-              className="absolute inset-0 w-full h-full cursor-crosshair touch-none select-none"
+              className="absolute inset-0 w-full h-full cursor-crosshair touch-none select-none z-10"
             />
           </div>
 

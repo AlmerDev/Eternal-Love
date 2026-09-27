@@ -302,7 +302,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onBackToHome }) => {
                 maxLength={8}
                 value={adminPin}
                 onChange={(e) => setAdminPin(e.target.value)}
-                placeholder="Kode PIN"
+                placeholder="Kode PIN (Contoh: 2909)"
                 className="w-full px-4 py-2.5 rounded-xl bg-[#FAF4F0] border-2 border-[#D8A7B1] text-[#4A1E28] font-mono text-center tracking-widest text-lg focus:outline-none focus:border-[#6B2D39]"
               />
               {adminPinError && (
@@ -373,10 +373,11 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onBackToHome }) => {
 
           <div className="flex items-center gap-2">
             <div
-              className={`px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1.5 border ${isSupabaseConfigured()
-                ? 'bg-emerald-50 text-emerald-700 border-emerald-300'
-                : 'bg-amber-50 text-amber-700 border-amber-300'
-                }`}
+              className={`px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1.5 border ${
+                isSupabaseConfigured()
+                  ? 'bg-emerald-50 text-emerald-700 border-emerald-300'
+                  : 'bg-amber-50 text-amber-700 border-amber-300'
+              }`}
               title={
                 isSupabaseConfigured()
                   ? 'Koneksi Supabase aktif via file .env'
@@ -412,10 +413,11 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onBackToHome }) => {
           <button
             type="button"
             onClick={() => setActiveTab('songs')}
-            className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-serif font-semibold border-2 transition cursor-pointer ${activeTab === 'songs'
-              ? 'bg-[#6B2D39] text-[#FFFDF9] border-[#4A1E28]'
-              : 'bg-[#FFFDF9] text-[#6B2D39] border-[#D8A7B1] hover:bg-[#F9E2E7]'
-              }`}
+            className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-serif font-semibold border-2 transition cursor-pointer ${
+              activeTab === 'songs'
+                ? 'bg-[#6B2D39] text-[#FFFDF9] border-[#4A1E28]'
+                : 'bg-[#FFFDF9] text-[#6B2D39] border-[#D8A7B1] hover:bg-[#F9E2E7]'
+            }`}
           >
             <Music className="w-4 h-4" />
             <span>Piringan Hitam &amp; Lagu ({songs.length})</span>
@@ -424,10 +426,11 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onBackToHome }) => {
           <button
             type="button"
             onClick={() => setActiveTab('pdkt')}
-            className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-serif font-semibold border-2 transition cursor-pointer ${activeTab === 'pdkt'
-              ? 'bg-[#6B2D39] text-[#FFFDF9] border-[#4A1E28]'
-              : 'bg-[#FFFDF9] text-[#6B2D39] border-[#D8A7B1] hover:bg-[#F9E2E7]'
-              }`}
+            className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-serif font-semibold border-2 transition cursor-pointer ${
+              activeTab === 'pdkt'
+                ? 'bg-[#6B2D39] text-[#FFFDF9] border-[#4A1E28]'
+                : 'bg-[#FFFDF9] text-[#6B2D39] border-[#D8A7B1] hover:bg-[#F9E2E7]'
+            }`}
           >
             <Camera className="w-4 h-4" />
             <span>Foto Kenangan PDKT ({pdktPhotos.length})</span>
@@ -436,10 +439,11 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onBackToHome }) => {
           <button
             type="button"
             onClick={() => setActiveTab('3d_photos')}
-            className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-serif font-semibold border-2 transition cursor-pointer ${activeTab === '3d_photos'
-              ? 'bg-[#6B2D39] text-[#FFFDF9] border-[#4A1E28]'
-              : 'bg-[#FFFDF9] text-[#6B2D39] border-[#D8A7B1] hover:bg-[#F9E2E7]'
-              }`}
+            className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-serif font-semibold border-2 transition cursor-pointer ${
+              activeTab === '3d_photos'
+                ? 'bg-[#6B2D39] text-[#FFFDF9] border-[#4A1E28]'
+                : 'bg-[#FFFDF9] text-[#6B2D39] border-[#D8A7B1] hover:bg-[#F9E2E7]'
+            }`}
           >
             <Sparkles className="w-4 h-4 text-[#C89D66]" />
             <span>Foto 3D Exhibition ({exhibitionPhotos.length})</span>
@@ -448,10 +452,11 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onBackToHome }) => {
           <button
             type="button"
             onClick={() => setActiveTab('countdowns')}
-            className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-serif font-semibold border-2 transition cursor-pointer ${activeTab === 'countdowns'
-              ? 'bg-[#6B2D39] text-[#FFFDF9] border-[#4A1E28]'
-              : 'bg-[#FFFDF9] text-[#6B2D39] border-[#D8A7B1] hover:bg-[#F9E2E7]'
-              }`}
+            className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-serif font-semibold border-2 transition cursor-pointer ${
+              activeTab === 'countdowns'
+                ? 'bg-[#6B2D39] text-[#FFFDF9] border-[#4A1E28]'
+                : 'bg-[#FFFDF9] text-[#6B2D39] border-[#D8A7B1] hover:bg-[#F9E2E7]'
+            }`}
           >
             <Clock className="w-4 h-4" />
             <span>Countdowns &amp; Hari Spesial ({countdowns.length})</span>
@@ -460,10 +465,11 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onBackToHome }) => {
           <button
             type="button"
             onClick={() => setActiveTab('journey')}
-            className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-serif font-semibold border-2 transition cursor-pointer ${activeTab === 'journey'
-              ? 'bg-[#6B2D39] text-[#FFFDF9] border-[#4A1E28]'
-              : 'bg-[#FFFDF9] text-[#6B2D39] border-[#D8A7B1] hover:bg-[#F9E2E7]'
-              }`}
+            className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-serif font-semibold border-2 transition cursor-pointer ${
+              activeTab === 'journey'
+                ? 'bg-[#6B2D39] text-[#FFFDF9] border-[#4A1E28]'
+                : 'bg-[#FFFDF9] text-[#6B2D39] border-[#D8A7B1] hover:bg-[#F9E2E7]'
+            }`}
           >
             <Heart className="w-4 h-4 text-rose-500 fill-rose-500" />
             <span>Perjalanan Sejak (Waktu Jadian)</span>
@@ -472,10 +478,11 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onBackToHome }) => {
           <button
             type="button"
             onClick={() => setActiveTab('secrets')}
-            className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-serif font-semibold border-2 transition cursor-pointer ${activeTab === 'secrets'
-              ? 'bg-[#6B2D39] text-[#FFFDF9] border-[#4A1E28]'
-              : 'bg-[#FFFDF9] text-[#6B2D39] border-[#D8A7B1] hover:bg-[#F9E2E7]'
-              }`}
+            className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-serif font-semibold border-2 transition cursor-pointer ${
+              activeTab === 'secrets'
+                ? 'bg-[#6B2D39] text-[#FFFDF9] border-[#4A1E28]'
+                : 'bg-[#FFFDF9] text-[#6B2D39] border-[#D8A7B1] hover:bg-[#F9E2E7]'
+            }`}
           >
             <Sparkles className="w-4 h-4" />
             <span>Surat Gores Rahasia ({secrets.length})</span>
@@ -1117,9 +1124,9 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onBackToHome }) => {
                             return isNaN(d.getTime())
                               ? c.target_date.slice(0, 10)
                               : d.toLocaleDateString('id-ID', {
-                                day: 'numeric',
-                                month: 'long',
-                              });
+                                  day: 'numeric',
+                                  month: 'long',
+                                });
                           } catch {
                             return c.target_date.slice(0, 10);
                           }
@@ -1468,7 +1475,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onBackToHome }) => {
                   <span className="block text-2xl font-serif font-bold text-[#4A1E28] tabular-nums">
                     {Math.floor(
                       Math.max(0, Date.now() - new Date(journeyForm.startDate || '2025-09-29').getTime()) /
-                      (1000 * 60 * 60 * 24)
+                        (1000 * 60 * 60 * 24)
                     )}
                   </span>
                   <span className="block text-[10px] font-mono uppercase font-bold text-[#6B2D39]">
@@ -1481,7 +1488,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onBackToHome }) => {
                       Math.floor(
                         (Math.max(0, Date.now() - new Date(journeyForm.startDate || '2025-09-29').getTime()) /
                           (1000 * 60 * 60)) %
-                        24
+                          24
                       )
                     ).padStart(2, '0')}
                   </span>
@@ -1495,7 +1502,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onBackToHome }) => {
                       Math.floor(
                         (Math.max(0, Date.now() - new Date(journeyForm.startDate || '2025-09-29').getTime()) /
                           (1000 * 60)) %
-                        60
+                          60
                       )
                     ).padStart(2, '0')}
                   </span>
@@ -1509,7 +1516,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onBackToHome }) => {
                       Math.floor(
                         (Math.max(0, Date.now() - new Date(journeyForm.startDate || '2025-09-29').getTime()) /
                           1000) %
-                        60
+                          60
                       )
                     ).padStart(2, '0')}
                   </span>
