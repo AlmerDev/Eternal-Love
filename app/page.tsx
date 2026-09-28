@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   Heart,
   Sparkles,
@@ -14,23 +14,29 @@ import {
   Calendar,
   Compass,
   Bookmark,
-} from 'lucide-react';
-import { KeypadLockScreen } from '../components/lock-screen/KeypadLockScreen';
-import { MusicSection } from '../components/music-player/MusicSection';
-import { PDKTSection } from '../components/pdkt-gallery/PDKTSection';
-import { EternalCountUp } from '../components/countdowns/EternalCountUp';
-import { PhotoExhibition3D } from '../components/3d-exhibition/PhotoExhibition3D';
-import { CanvasScratchCard } from '../components/scratch-card/CanvasScratchCard';
-import { AdminPage } from './admin/page';
-import { Song, Photo, CountdownItem, SecretMessage, JourneySettings } from '../types/database';
-import { api } from '../lib/supabase';
+} from "lucide-react";
+import { KeypadLockScreen } from "../components/lock-screen/KeypadLockScreen";
+import { MusicSection } from "../components/music-player/MusicSection";
+import { PDKTSection } from "../components/pdkt-gallery/PDKTSection";
+import { EternalCountUp } from "../components/countdowns/EternalCountUp";
+import { PhotoExhibition3D } from "../components/3d-exhibition/PhotoExhibition3D";
+import { CanvasScratchCard } from "../components/scratch-card/CanvasScratchCard";
+import { AdminPage } from "./admin/page";
+import {
+  Song,
+  Photo,
+  CountdownItem,
+  SecretMessage,
+  JourneySettings,
+} from "../types/database";
+import { api } from "../lib/supabase";
 import {
   INITIAL_SONGS,
   INITIAL_PHOTOS,
   INITIAL_COUNTDOWNS,
   INITIAL_SECRET_MESSAGES,
   INITIAL_JOURNEY_SETTINGS,
-} from '../lib/initial-data';
+} from "../lib/initial-data";
 
 export default function Home() {
   const [isUnlocked, setIsUnlocked] = useState<boolean>(false);
@@ -40,9 +46,14 @@ export default function Home() {
   // Database loaded state initialized with authentic romantic defaults
   const [songs, setSongs] = useState<Song[]>(INITIAL_SONGS);
   const [photos, setPhotos] = useState<Photo[]>(INITIAL_PHOTOS);
-  const [countdowns, setCountdowns] = useState<CountdownItem[]>(INITIAL_COUNTDOWNS);
-  const [secrets, setSecrets] = useState<SecretMessage[]>(INITIAL_SECRET_MESSAGES);
-  const [journeySettings, setJourneySettings] = useState<JourneySettings>(INITIAL_JOURNEY_SETTINGS);
+  const [countdowns, setCountdowns] =
+    useState<CountdownItem[]>(INITIAL_COUNTDOWNS);
+  const [secrets, setSecrets] = useState<SecretMessage[]>(
+    INITIAL_SECRET_MESSAGES,
+  );
+  const [journeySettings, setJourneySettings] = useState<JourneySettings>(
+    INITIAL_JOURNEY_SETTINGS,
+  );
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   // Load scrapbook memories from Supabase / local cache
@@ -62,7 +73,7 @@ export default function Home() {
         setSecrets(sec);
         setJourneySettings(j);
       } catch (err) {
-        console.error('Failed to load scrapbook memories:', err);
+        console.error("Failed to load scrapbook memories:", err);
       } finally {
         setIsLoading(false);
       }
@@ -82,8 +93,8 @@ export default function Home() {
   };
 
   // Filter distinct photo collections
-  const pdktPhotos = photos.filter((p) => p.category === 'pdkt');
-  const exhibitionPhotos = photos.filter((p) => p.category === '3d_exhibition');
+  const pdktPhotos = photos.filter((p) => p.category === "pdkt");
+  const exhibitionPhotos = photos.filter((p) => p.category === "3d_exhibition");
 
   // If Admin panel is opened
   if (showAdmin) {
@@ -93,10 +104,14 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-[#FAF4F0] text-[#4A1E28] relative selection:bg-[#F9E2E7] selection:text-[#4A1E28]">
       {/* Module 1: Keypad Lock Screen Overlay (Passcode: 2909) */}
-      {!isUnlocked && <KeypadLockScreen onUnlock={handleUnlock} targetPasscode="2909" />}
+      {!isUnlocked && (
+        <KeypadLockScreen onUnlock={handleUnlock} targetPasscode="2909" />
+      )}
 
       {/* Main Scrapbook Web Application */}
-      <div className={`transition-opacity duration-700 ${isUnlocked ? 'opacity-100' : 'opacity-0 h-0 overflow-hidden'}`}>
+      <div
+        className={`transition-opacity duration-700 ${isUnlocked ? "opacity-100" : "opacity-0 h-0 overflow-hidden"}`}
+      >
         {/* Scrapbook Navigation Bar */}
         <header className="sticky top-0 z-30 bg-[#FFFDF9] border-b-2 border-[#D8A7B1] shadow-sm">
           <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
@@ -116,23 +131,38 @@ export default function Home() {
 
             {/* Quick Links Navigation */}
             <nav className="hidden md:flex items-center gap-6 text-xs font-serif font-semibold text-[#6B2D39]">
-              <a href="#music-showcase" className="hover:text-[#4A1E28] transition flex items-center gap-1">
+              <a
+                href="#music-showcase"
+                className="hover:text-[#4A1E28] transition flex items-center gap-1"
+              >
                 <Music className="w-3.5 h-3.5" />
                 <span>Piringan Hitam</span>
               </a>
-              <a href="#pdkt-story" className="hover:text-[#4A1E28] transition flex items-center gap-1">
+              <a
+                href="#pdkt-story"
+                className="hover:text-[#4A1E28] transition flex items-center gap-1"
+              >
                 <Camera className="w-3.5 h-3.5" />
                 <span>Kisah PDKT</span>
               </a>
-              <a href="#countdowns-hub" className="hover:text-[#4A1E28] transition flex items-center gap-1">
+              <a
+                href="#countdowns-hub"
+                className="hover:text-[#4A1E28] transition flex items-center gap-1"
+              >
                 <Clock className="w-3.5 h-3.5" />
                 <span>Detik Kasih</span>
               </a>
-              <a href="#exhibition-3d" className="hover:text-[#4A1E28] transition flex items-center gap-1">
+              <a
+                href="#exhibition-3d"
+                className="hover:text-[#4A1E28] transition flex items-center gap-1"
+              >
                 <Sparkles className="w-3.5 h-3.5 text-[#C89D66]" />
                 <span>Galeri 3D</span>
               </a>
-              <a href="#scratch-secret" className="hover:text-[#4A1E28] transition flex items-center gap-1">
+              <a
+                href="#scratch-secret"
+                className="hover:text-[#4A1E28] transition flex items-center gap-1"
+              >
                 <Bookmark className="w-3.5 h-3.5" />
                 <span>Surat Gores</span>
               </a>
@@ -197,9 +227,11 @@ export default function Home() {
               <div className="max-w-2xl mx-auto scrapbook-card p-6 bg-[#FFFDF9] text-left relative rotate-[-0.5deg]">
                 <div className="absolute -top-3 left-8 h-4 w-20 bg-[#F9E2E7] border border-dashed border-[#D8A7B1] rotate-[-2deg]" />
                 <p className="font-cormorant text-base sm:text-lg text-[#4A1E28] leading-relaxed italic font-medium">
-                  &ldquo;Di setiap lembaran scrapbook ini, tersimpan ribuan tawa yang pernah kita bagi, lagu-lagu
-                  yang memeluk keheningan malam kita, dan janji suci yang kita ikrarkan sejak 29 September.
-                  Untuk Ciyan tercinta, ini adalah monumen cinta kita yang abadi.&rdquo;
+                  &ldquo;Di setiap lembaran scrapbook ini, tersimpan ribuan tawa
+                  yang pernah kita bagi, lagu-lagu yang memeluk keheningan malam
+                  kita, dan janji suci yang kita ikrarkan sejak 29 September.
+                  Untuk Ciyan tercinta, ini adalah monumen cinta kita yang
+                  abadi.&rdquo;
                 </p>
                 <div className="mt-4 pt-3 border-t border-dashed border-[#D8A7B1] flex justify-between items-center">
                   <span className="font-script text-xl text-[#6B2D39] font-bold">
@@ -248,13 +280,14 @@ export default function Home() {
               Eternal Love &bull; Ciyan &amp; Daffa
             </h3>
             <p className="text-sm font-cormorant text-[#6B2D39] italic font-semibold mb-6">
-              Diabadikan dengan penuh cinta sejak 29 September 2025 hingga akhir masa.
+              Diabadikan dengan penuh cinta sejak 29 September 2025 hingga akhir
+              masa.
             </p>
 
             <div className="flex flex-wrap items-center justify-center gap-4 text-xs font-serif text-[#6B2D39]">
               <button
                 type="button"
-                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
                 className="hover:underline flex items-center gap-1 cursor-pointer"
               >
                 <ArrowUp className="w-3.5 h-3.5" />
@@ -276,7 +309,7 @@ export default function Home() {
                 className="hover:underline flex items-center gap-1 cursor-pointer"
               >
                 <Lock className="w-3.5 h-3.5" />
-                <span>Kunci Scrapbook (2909)</span>
+                <span>Kunci Scrapbook</span>
               </button>
             </div>
           </div>

@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import { Lock, Unlock, KeyRound, Delete, Heart, Sparkles } from 'lucide-react';
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
+import { Lock, Unlock, KeyRound, Delete, Heart, Sparkles } from "lucide-react";
 
 interface KeypadLockScreenProps {
   onUnlock: () => void;
@@ -9,9 +9,9 @@ interface KeypadLockScreenProps {
 
 export const KeypadLockScreen: React.FC<KeypadLockScreenProps> = ({
   onUnlock,
-  targetPasscode = '2909',
+  targetPasscode = "2909",
 }) => {
-  const [pin, setPin] = useState<string>('');
+  const [pin, setPin] = useState<string>("");
   const [isError, setIsError] = useState<boolean>(false);
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
   const [hintVisible, setHintVisible] = useState<boolean>(false);
@@ -30,7 +30,7 @@ export const KeypadLockScreen: React.FC<KeypadLockScreenProps> = ({
       } else {
         setIsError(true);
         setTimeout(() => {
-          setPin('');
+          setPin("");
           setIsError(false);
         }, 700);
       }
@@ -39,7 +39,7 @@ export const KeypadLockScreen: React.FC<KeypadLockScreenProps> = ({
 
   const handleClear = () => {
     if (isSuccess) return;
-    setPin('');
+    setPin("");
     setIsError(false);
   };
 
@@ -68,7 +68,11 @@ export const KeypadLockScreen: React.FC<KeypadLockScreenProps> = ({
         {/* Vintage Scrapbook Paper Card Box */}
         <motion.div
           className={`relative w-full max-w-sm scrapbook-card p-6 sm:p-8 text-[#4A1E28] transition-colors duration-300 ${
-            isError ? 'border-red-400 bg-[#FFF5F5]' : isSuccess ? 'border-emerald-500 bg-[#F4FFF8]' : 'bg-[#FFFDF9]'
+            isError
+              ? "border-red-400 bg-[#FFF5F5]"
+              : isSuccess
+                ? "border-emerald-500 bg-[#F4FFF8]"
+                : "bg-[#FFFDF9]"
           }`}
           animate={
             isError
@@ -77,11 +81,11 @@ export const KeypadLockScreen: React.FC<KeypadLockScreenProps> = ({
                   transition: { duration: 0.5 },
                 }
               : isSuccess
-              ? {
-                  scale: [1, 1.03, 1],
-                  transition: { duration: 0.4 },
-                }
-              : {}
+                ? {
+                    scale: [1, 1.03, 1],
+                    transition: { duration: 0.4 },
+                  }
+                : {}
           }
         >
           {/* Scrapbook Tape Accent */}
@@ -121,11 +125,11 @@ export const KeypadLockScreen: React.FC<KeypadLockScreenProps> = ({
                   className={`w-4 h-4 rounded-full border-2 transition-all duration-200 ${
                     filled
                       ? isError
-                        ? 'bg-red-500 border-red-600 scale-110'
+                        ? "bg-red-500 border-red-600 scale-110"
                         : isSuccess
-                        ? 'bg-emerald-600 border-emerald-700 scale-125'
-                        : 'bg-[#6B2D39] border-[#4A1E28] scale-110 shadow-sm'
-                      : 'bg-white border-[#D8A7B1]'
+                          ? "bg-emerald-600 border-emerald-700 scale-125"
+                          : "bg-[#6B2D39] border-[#4A1E28] scale-110 shadow-sm"
+                      : "bg-white border-[#D8A7B1]"
                   }`}
                 />
               );
@@ -134,7 +138,7 @@ export const KeypadLockScreen: React.FC<KeypadLockScreenProps> = ({
 
           {/* 10-Key Numeric Keypad */}
           <div className="grid grid-cols-3 gap-3 mb-4">
-            {['1', '2', '3', '4', '5', '6', '7', '8', '9'].map((digit) => (
+            {["1", "2", "3", "4", "5", "6", "7", "8", "9"].map((digit) => (
               <button
                 key={digit}
                 type="button"
@@ -157,7 +161,7 @@ export const KeypadLockScreen: React.FC<KeypadLockScreenProps> = ({
             {/* Zero Digit */}
             <button
               type="button"
-              onClick={() => handleKeyPress('0')}
+              onClick={() => handleKeyPress("0")}
               className="h-13 rounded-xl bg-[#FAF4F0] hover:bg-[#F9E2E7] active:scale-95 border-2 border-[#D8A7B1] text-[#4A1E28] font-serif font-semibold text-xl transition shadow-[2px_3px_0px_0px_#D8A7B1] flex items-center justify-center cursor-pointer select-none"
             >
               0
@@ -182,22 +186,24 @@ export const KeypadLockScreen: React.FC<KeypadLockScreenProps> = ({
               className="inline-flex items-center gap-1.5 text-xs text-[#6B2D39] hover:text-[#4A1E28] underline underline-offset-4 cursor-pointer font-cormorant"
             >
               <Heart className="w-3.5 h-3.5 text-[#C89D66] fill-[#C89D66]/20" />
-              <span>{hintVisible ? 'Tutup Petunjuk' : 'Lupa kodenya? Lihat Petunjuk'}</span>
+              <span>
+                {hintVisible
+                  ? "Tutup Petunjuk"
+                  : "Lupa kodenya? Lihat Petunjuk"}
+              </span>
             </button>
 
             {hintVisible && (
               <motion.div
                 initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
+                animate={{ opacity: 1, height: "auto" }}
                 className="mt-2.5 p-3 rounded-xl bg-[#F9E2E7] border border-[#D8A7B1] text-xs text-[#4A1E28] font-serif"
               >
                 <div className="flex items-center justify-center gap-1 text-[#6B2D39] font-semibold mb-1">
                   <Sparkles className="w-3.5 h-3.5 text-[#C89D66]" />
                   <span>Petunjuk Cinta:</span>
                 </div>
-                <p>
-                  Tanggal resmi kita berdua jadian di bulan September (Format: <strong>2909</strong>).
-                </p>
+                <p>Tanggal resmi kita berdua jadian.</p>
               </motion.div>
             )}
           </div>

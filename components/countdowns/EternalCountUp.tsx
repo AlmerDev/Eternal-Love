@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Clock, Hourglass, Calendar, Heart, Sparkles, Gift } from 'lucide-react';
 import { CountdownItem, JourneySettings } from '../../types/database';
+import {
+  calculateJakartaCountdown,
+  calculateJakartaElapsed,
+  formatJakartaDisplay,
+  getJakartaDateParts,
+  CountdownRemaining,
+} from '../../lib/timezone';
 
 interface EternalCountUpProps {
   countdowns: CountdownItem[];
@@ -8,17 +15,9 @@ interface EternalCountUpProps {
   journeySettings?: JourneySettings;
 }
 
-interface TimeRemaining {
-  days: number;
-  hours: number;
-  minutes: number;
-  seconds: number;
-  isPast?: boolean;
-}
-
 export const EternalCountUp: React.FC<EternalCountUpProps> = ({
   countdowns,
-  anniversaryStartDate = '2025-09-29T00:00:00',
+  anniversaryStartDate = '2025-09-29T00:00:00+07:00',
   journeySettings,
 }) => {
   const effectiveStartDate = journeySettings?.startDate || anniversaryStartDate;
@@ -28,7 +27,7 @@ export const EternalCountUp: React.FC<EternalCountUpProps> = ({
     journeySettings?.description ||
     'Tidak ada satu detik pun yang berlalu tanpa rasa syukur karena memilikimu di sisiku.';
 
-  const [countUpTime, setCountUpTime] = useState<TimeRemaining>({
+  const [countUpTime, setCountUpTime] = useState<CountdownRemaining>({
     days: 0,
     hours: 0,
     minutes: 0,
@@ -36,53 +35,22 @@ export const EternalCountUp: React.FC<EternalCountUpProps> = ({
   });
 
   const [countdownsState, setCountdownsState] = useState<
-    Array<{ item: CountdownItem; remaining: TimeRemaining }>
+    Array<{ item: CountdownItem; remaining: CountdownRemaining }>
   >([]);
 
-  // Calculate live count-up & countdowns every second
+  // Calculate live count-up & countdowns every second strictly aligned to Asia/Jakarta (WIB)
   useEffect(() => {
     const calculateAll = () => {
-      const now = new Date().getTime();
-      const start = new Date(effectiveStartDate).getTime();
-      const diffSinceStart = Math.max(0, now - start);
+      // Count up from start date in Asia/Jakarta
+      const elapsed = calculateJakartaElapsed(effectiveStartDate);
+      setCountUpTime(elapsed);
 
-      // Count up from start date
-      const cDays = Math.floor(diffSinceStart / (1000 * 60 * 60 * 24));
-      const cHours = Math.floor((diffSinceStart / (1000 * 60 * 60)) % 24);
-      const cMinutes = Math.floor((diffSinceStart / (1000 * 60)) % 60);
-      const cSeconds = Math.floor((diffSinceStart / 1000) % 60);
-
-      setCountUpTime({
-        days: cDays,
-        hours: cHours,
-        minutes: cMinutes,
-        seconds: cSeconds,
-      });
-
-      // Countdowns calculation
+      // Countdowns calculation in Asia/Jakarta
       const calculatedItems = countdowns.map((item) => {
-        let target = new Date(item.target_date).getTime();
-
-        // If recurring event (e.g. anniversary or birthday in past this year), dynamically roll to next occurrence
-        if (target < now) {
-          const targetObj = new Date(item.target_date);
-          const currentYear = new Date().getFullYear();
-          targetObj.setFullYear(currentYear);
-          if (targetObj.getTime() < now) {
-            targetObj.setFullYear(currentYear + 1);
-          }
-          target = targetObj.getTime();
-        }
-
-        const diff = Math.max(0, target - now);
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-        const minutes = Math.floor((diff / (1000 * 60)) % 60);
-        const seconds = Math.floor((diff / 1000) % 60);
-
+        const remaining = calculateJakartaCountdown(item.target_date, item.category);
         return {
           item,
-          remaining: { days, hours, minutes, seconds },
+          remaining,
         };
       });
 
@@ -111,12 +79,14 @@ export const EternalCountUp: React.FC<EternalCountUpProps> = ({
 
   const formatEventDate = (dateString: string) => {
     try {
-      const d = new Date(dateString);
-      if (isNaN(d.getTime())) return dateString;
-      return new Intl.DateTimeFormat('id-ID', {
-        day: 'numeric',
-        month: 'long',
-      }).format(d);
+      const parts = getJakartaDateParts(dateString);
+      const hasSpecificTime = parts.hours !== 0 || parts.minutes !== 0;
+      const formatted = formatJakartaDisplay(dateString, {
+        includeYear: false,
+        includeTime: hasSpecificTime,
+        includeTimezone: hasSpecificTime,
+      });
+      return `Setiap ${formatted}`;
     } catch {
       return dateString;
     }

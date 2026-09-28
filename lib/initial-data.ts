@@ -228,7 +228,7 @@ export const INITIAL_COUNTDOWNS: CountdownItem[] = [
   {
     id: 'cd-anniv',
     title: 'Hari Jadi Kita (Next Anniversary)',
-    target_date: '2027-09-29T00:00:00',
+    target_date: '2027-09-29T00:00:00+07:00',
     category: 'anniversary',
     description: 'Momen sakral saat Ciyan & Daffa mengawali kisah cinta abadi pada 29 September.',
     badge: 'Momen Paling Spesial',
@@ -236,7 +236,7 @@ export const INITIAL_COUNTDOWNS: CountdownItem[] = [
   {
     id: 'cd-ciyan',
     title: 'Ulang Tahun Ciyan Terkasih',
-    target_date: '2027-04-18T00:00:00',
+    target_date: '2027-04-18T00:00:00+07:00',
     category: 'birthday_ciyan',
     description: 'Hari terlahirnya bidadari yang menjadi rumah terhangat bagi Daffa.',
     badge: 'Ciyan Birthday',
@@ -244,7 +244,7 @@ export const INITIAL_COUNTDOWNS: CountdownItem[] = [
   {
     id: 'cd-daffa',
     title: 'Ulang Tahun Daffa Tercinta',
-    target_date: '2027-07-12T00:00:00',
+    target_date: '2027-07-12T00:00:00+07:00',
     category: 'birthday_daffa',
     description: 'Hari spesial untuk pria yang berjanji menjaga Ciyan seumur hidupnya.',
     badge: 'Daffa Birthday',
@@ -252,7 +252,7 @@ export const INITIAL_COUNTDOWNS: CountdownItem[] = [
   {
     id: 'cd-val',
     title: 'Hari Kasih Sayang (Valentine)',
-    target_date: '2027-02-14T00:00:00',
+    target_date: '2027-02-14T00:00:00+07:00',
     category: 'valentine',
     description: 'Perayaan cinta dengan setangkai mawar vintage dan secarik surat penuh ketulusan.',
     badge: 'Hari Kasih Sayang',
@@ -284,7 +284,7 @@ export const INITIAL_SECRET_MESSAGES: SecretMessage[] = [
 ];
 
 export const INITIAL_JOURNEY_SETTINGS: JourneySettings = {
-  startDate: '2025-09-29T00:00:00',
+  startDate: '2025-09-29T00:00:00+07:00',
   badgeText: 'Bersama Sejak 29 September 2025',
   title: 'Perjalanan Indah Kita Berdua',
   description: 'Tidak ada satu detik pun yang berlalu tanpa rasa syukur karena memilikimu di sisiku.',
